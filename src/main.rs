@@ -5,6 +5,8 @@
 //! 2. Defining a `Router` with a simple `GET` route.
 //! 3. Binding a `TcpListener` to a specific address and port.
 //! 4. Serving the application to handle incoming HTTP requests.
+//! 
+//! Run with `cargo run` or `bacon run-long`
 
 use axum::{Router, routing::get};
 
