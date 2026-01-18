@@ -8,11 +8,7 @@
 //! 
 //! Run with `cargo run` or `bacon run-long`
 
-use axum::{Router, routing::get};
-
-async fn project_version() -> String {
-    format!("Project Version:{}", env!("CARGO_PKG_VERSION"))
-}
+use hello_world::run;
 
 /// The entry point for the application.
 ///
@@ -20,18 +16,5 @@ async fn project_version() -> String {
 /// and starts the server on port 8080.
 #[tokio::main]
 async fn main() {
-    // Build our application with a single route.
-    // The `get` handler returns a "Hello, World!" string with a 200 OK status.
-    let app = 
-        Router::new()
-        .route("/", get(|| async { "Hello, World!" }))
-        .route("/version", get(project_version));
-
-    // Run our app with hyper, listening globally on port 8080.
-    // `0.0.0.0` allows connections from any network interface.
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:8080").await.unwrap();
-
-    println!("listening on {}", listener.local_addr().unwrap());
-
-    axum::serve(listener, app).await.unwrap();
+    run().await;
 }
