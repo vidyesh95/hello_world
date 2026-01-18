@@ -10,6 +10,10 @@
 
 use axum::{Router, routing::get};
 
+async fn project_version() -> String {
+    format!("Project Version:{}", env!("CARGO_PKG_VERSION"))
+}
+
 /// The entry point for the application.
 ///
 /// It initializes the Tokio runtime, builds the Axum router,
@@ -18,7 +22,10 @@ use axum::{Router, routing::get};
 async fn main() {
     // Build our application with a single route.
     // The `get` handler returns a "Hello, World!" string with a 200 OK status.
-    let app = Router::new().route("/", get(|| async { "Hello, World!" }));
+    let app = 
+        Router::new()
+        .route("/", get(|| async { "Hello, World!" }))
+        .route("/version", get(project_version));
 
     // Run our app with hyper, listening globally on port 8080.
     // `0.0.0.0` allows connections from any network interface.
